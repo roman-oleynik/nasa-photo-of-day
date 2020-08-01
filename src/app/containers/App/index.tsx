@@ -1,12 +1,16 @@
 import React from 'react';
 import './style.scss';
 import { Switch, Route } from 'react-router-dom';
-
+import { Main } from '../../components/Main';
+import { PicturePage } from '../../components/PicturePage';
 
 export function App() {
   return (
     <main className="App-Container">
-      Hello World!
+      <Switch>
+        <Route path="/" exact component={Main} />
+        <Route path="/picture/:date" exact component={PicturePage} />
+      </Switch>
     </main>
   );
 };
