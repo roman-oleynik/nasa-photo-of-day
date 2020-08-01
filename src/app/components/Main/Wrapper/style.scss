@@ -1,0 +1,48 @@
+@mixin flex($direction: row, $j-content: flex-start, $a-items:stretch) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $j-content;
+    align-items: $a-items;
+}
+  
+  
+  .App {
+    @include flex(column, flex-start, center);
+  
+    .App__Picture-Display {
+      width: 300px;
+    }
+    .App__Picture-Item {
+      width: 200px;
+    }
+    .App__Error {
+      color: salmon;
+    }
+    .Pictures-List {
+      position: relative;
+      @include flex(row, center, center);
+      flex-wrap: wrap;
+      .Size-Wrapper {
+        position: relative;
+        height: 150px;
+        width: 300px;
+        overflow: hidden;
+        @include flex(row, center, center);
+        background: #000;
+        .Link-To-Picture-Info {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          .App__Picture-Item {
+            width: 300px;
+          }
+        }
+        .Link-To-Video {
+          font-size: 20px;
+          text-decoration: none;
+          color: lightseagreen;
+        }
+      }
+    }
+  }
