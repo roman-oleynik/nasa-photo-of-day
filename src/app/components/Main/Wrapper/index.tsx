@@ -27,7 +27,7 @@ export function Main() {
         setPicturesList(pictures);
       }
       catch (err) {
-        throw new Error("The request is failed.")
+        throw new Error("The request is failed.");
       }
     };
   
@@ -39,12 +39,12 @@ export function Main() {
         <h2>Pictures for last 2 weeks</h2>
         <div className="Pictures-List">
           {
-            picturesList.length 
-            ? 
+            picturesList.length
+            ?
             picturesList.map((picture: PictureModel) => {
               if (picture.media_type === "video") {
                 return (
-                  <VideoLink 
+                  <VideoLink
                     key = {picture.date}
                     url = {picture.url}
                   />
