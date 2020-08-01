@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import { Switch, Route } from 'react-router-dom';
-import { Main } from '../../components/Main';
+import { Main } from '../../components/Main/Wrapper';
 import { PicturePage } from '../../components/PicturePage';
 
 export function App() {
