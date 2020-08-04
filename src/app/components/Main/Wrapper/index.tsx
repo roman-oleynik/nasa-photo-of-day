@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { PictureModel } from '../../../models';
 import { getAPIURL } from '../../../utils/getAPIURL';
@@ -8,23 +8,31 @@ import { VideoLink } from '../VideoLink';
 import { PhotoLink } from '../PhotoLink';
 import spinner from '../../../../assets/preloader.gif';
 import './style.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../reducers';
+import { setTwoWeeksPictures } from '../../../actions/twoWeeksPicturesActions';
 
 
 export function Main() {
-    const [picturesList, setPicturesList] = useState([] as PictureModel[]);
+    const dispatch = useDispatch();
+    const twoWeeksPictures = useSelector((state: RootState) => state.twoWeeksPictures);
 
     useEffect(() => {
-      getPicturesForLastTwoWeeks();
+      if (twoWeeksPictures.length !== 14) {
+        getPicturesForLastTwoWeeks();
+      }
     }, []);
 
     async function getPicturesForLastTwoWeeks() {
-      const pictures: PictureModel[] = [];
-      for await (let date of createDatesList()) {
-        const res: AxiosResponse = await axios.get(getAPIURL(date));
-        pictures.push(res.data);
-      };
       try {
-        setPicturesList(pictures);
+        const pictures: PictureModel[] = [];
+
+        for await (let date of createDatesList()) {
+          const res: AxiosResponse = await axios.get(getAPIURL(date));
+          pictures.push(res.data);
+        };
+
+        dispatch(setTwoWeeksPictures(pictures))
       }
       catch (err) {
         throw new Error("The request is failed.");
@@ -39,9 +47,9 @@ export function Main() {
         <h2>Pictures for last 2 weeks</h2>
         <div className="Pictures-List">
           {
-            picturesList.length
+            twoWeeksPictures.length
             ?
-            picturesList.map((picture: PictureModel) => {
+            twoWeeksPictures.map((picture: PictureModel) => {
               if (picture.media_type === "video") {
                 return (
                   <VideoLink

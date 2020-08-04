@@ -3,16 +3,14 @@ import { setPictureOnPage, fetchPictureOnPage } from './pictureOnPageActions';
 import { setPicture, fetchPicture } from './pictureActions';
 
 import ReactDOM from 'react-dom';
-import {act, render, fireEvent, cleanup, waitForElement} from '@testing-library/react';
 
-import axios from "axios";
+import axiosMock from "axios";
+import {Main} from '../components/Main/Wrapper';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../store';
 
 
-// test('renders learn react link', () => {
-//     const { getByText } = render(<App />);
-//     const linkElement = getByText(/learn react/i);
-//     expect(linkElement).toBeInTheDocument();
-// });
 
 it("The setPicture action creator should return an object with a type and a body", () => {
     const pictureObject = {

@@ -18,3 +18,12 @@ export function pictureOnPageReducer(state: PictureModel = {} as PictureModel, a
             return state;
     }
 };
+
+export function twoWeeksPicturesReducer(state: PictureModel[] = [] as PictureModel[], action: Action) {
+    switch (action.type) {
+        case ActionType.SET_TWO_WEEKS_PICTURES:
+            return [...action.body];
+        default:
+            return state;
+    }
+}
